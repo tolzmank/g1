@@ -7,6 +7,7 @@ import os
 
 app = Flask(__name__)
 
+# RIGHT FILE???
 
 # database connection info
 app.config["MYSQL_HOST"] = "classmysql.engr.oregonstate.edu"
