@@ -1,0 +1,17 @@
+# Ignore virtual environments
+.venv/
+venv/
+bin/
+include/
+lib/
+lib64/
+pyvenv.cfg
+
+# Bytecode files
+*.pyc
+__pycache__/
+
+# System-specific files
+.DS_Store
+Thumbs.db
+lib64

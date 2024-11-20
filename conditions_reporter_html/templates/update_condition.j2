@@ -1,0 +1,42 @@
+<html>
+
+<head>
+	<title>Edit User - Surf Conditions Reporter</title>
+    <link href="../static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- PAGE TITLE -->
+<h1>Surf Conditions Reporter</h1>
+<p></p>
+
+<!-- NAVIGATION BAR -->
+<div>[ <a href="/users">users</a> | <a href="/locations">locations</a> | <a href="/stations">stations</a> | <a href="/conditions">conditions</a> ]</div>
+<div>[ <a href="/locations_stations">locations_stations</a> | <a href="/users_locations">users_locations</a> | <a href="/users_conditions">users_conditions</a> | <a href="/stations_conditions">stations_conditions</a> ]</div>
+<p></p>
+
+<!-- UPDATE DETAILS WINDOW -->
+<body>
+    <div id="edit">
+        <form id="updateUser" action="/update_condition/{{ condition[0].condition_id }}" method="POST">
+            <legend><strong>Update Condition Details</strong></legend>
+            <fieldset>
+
+                <!-- ITEM ATTRIBUTES -->
+                <input type="hidden" value="{{ condition[0].condition_id }}" class="form-control" id="condition_id" name="condition_id" required>
+                
+                <label for="make">Condition Type:</label>
+                <input type="text" value="{{ condition[0].condition_type }}" class="form-control" id="condition_type" name="condition_type" required>
+                
+                <label for="model">Measurement Unit:</label>
+                <input type="text" value="{{ condition[0].measurement_unit }}" class="form-control" id="measurement_unit" name="measurement_unit" required>
+                
+            </fieldset>
+
+
+            <!-- CONFIRM UPDATE/CANCEL BUTTONS -->
+            <input type="submit" value="Update User" name="Update_Condition" class="btn btn-primary" style="margin:.5rem;">
+            <button class="btn" type="button" onclick="window.location.href='/conditions';">Cancel</button>
+
+        </form>
+
+</html>

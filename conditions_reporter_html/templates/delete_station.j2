@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title>Delete User - Surf Conditions Reporter</title>
+    <link href="../static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<!-- PAGE TITLE -->
+<h1>Surf Conditions Reporter</h1>
+<p></p>
+
+
+<!-- NAVIGATION BAR -->
+<div>[ <a href="/users">users</a> | <a href="/locations">locations</a> | <a href="/stations">stations</a> | <a href="/conditions">conditions</a> ]</div>
+<div>[ <a href="/locations_stations">locations_stations</a> | <a href="/users_locations">users_locations</a> | <a href="/users_conditions">users_conditions</a> | <a href="/stations_conditions">stations_conditions</a> ]</div>
+<p></p>
+
+
+<!-- DELETE CONFIRMATION WINDOW -->
+<body>
+    <div id="delete" style="display: block">
+    <form id="deleteStation" action="/delete_station{{ station[0].station_id }}" method="POST" >
+        <legend><strong>Confirm Delete Station</strong></legend>
+            <fieldset class="fields">
+            <p>Are you sure you wish to delete the following?</p>
+
+
+            <!-- ITEM ATTRIBUTES -->
+            <div><label><strong>Station ID: </strong></label> {{ station[0].station_id }}</div>
+            <div><label><strong>Station Code: </strong></label> {{ station[0].station_code }}</div>
+            <div><label> <strong>Station Name: </strong> </label> {{ station[0].station_name }}</div>
+            <div><label> <strong>Station URL: </strong> </label> {{ station[0].station_url }}</div>
+            <div><label> <strong>Date Refreshed: </strong> </label> {{ station[0].date_refreshed }}</div>
+        </fieldset>
+
+
+        <!-- CONFIRM/CANCEL BUTTONS -->
+        <input class="btn" type="submit" name="Delete_Station" value="Delete Station>
+        <button class="btn" type="button" onclick="window.location.href='/stations';">Cancel</button>
+    </form> 
+    </div>
+
+</html>

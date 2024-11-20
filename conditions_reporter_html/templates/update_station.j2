@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<title>Edit User - Surf Conditions Reporter</title>
+    <link href="../static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- PAGE TITLE -->
+<h1>Surf Conditions Reporter</h1>
+<p></p>
+
+<!-- NAVIGATION BAR -->
+<div>[ <a href="/users">users</a> | <a href="/locations">locations</a> | <a href="/stations">stations</a> | <a href="/conditions">conditions</a> ]</div>
+<div>[ <a href="/locations_stations">locations_stations</a> | <a href="/users_locations">users_locations</a> | <a href="/users_conditions">users_conditions</a> | <a href="/stations_conditions">stations_conditions</a> ]</div>
+<p></p>
+
+<!-- UPDATE DETAILS WINDOW -->
+<body>
+    <div id="edit">
+        <form id="updateStation" action="/update_station/{{ station[0].station_id }}" method="POST">
+            <legend><strong>Update Station Details</strong></legend>
+            <fieldset>
+
+                <!-- ITEM ATTRIBUTES -->
+                <input type="hidden" value="{{ station[0].station_id }}" class="form-control" id="station_id" name="station_id" required>
+                
+                <label for="make">Station Code:</label>
+                <input type="text" value="{{ station[0].station_code }}" class="form-control" id="station_code" name="station_code" required>
+                
+                <label for="model">Station Name:</label>
+                <input type="text" value="{{ station[0].station_name }}" class="form-control" id="station_name name="station_name" required>
+                
+                <label for="model">Station URL:</label>
+                <input type="text" value="{{ station[0].station_url }}" class="form-control" id="station_url name="station_url" required>
+
+                <label for="model">Date Refreshed:</label>
+                <input type="text" value="{{ station[0].date_refreshed }}" class="form-control" id="date_refreshed name="date_refreshed" required>
+            </fieldset>
+
+
+            <!-- CONFIRM UPDATE/CANCEL BUTTONS -->
+            <input type="submit" value="Update Station" name="Update_Station" class="btn btn-primary" style="margin:.5rem;">
+            <button class="btn" type="button" onclick="window.location.href='/stations';">Cancel</button>
+
+        </form>
+
+</html>

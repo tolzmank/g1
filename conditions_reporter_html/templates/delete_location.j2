@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>Delete User - Surf Conditions Reporter</title>
+    <link href="../static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<!-- PAGE TITLE -->
+<h1>Surf Conditions Reporter</h1>
+<p></p>
+
+
+<!-- NAVIGATION BAR -->
+<div>[ <a href="/users">users</a> | <a href="/locations">locations</a> | <a href="/stations">stations</a> | <a href="/conditions">conditions</a> ]</div>
+<div>[ <a href="/locations_stations">locations_stations</a> | <a href="/users_locations">users_locations</a> | <a href="/users_conditions">users_conditions</a> | <a href="/stations_conditions">stations_conditions</a> ]</div>
+<p></p>
+
+
+<!-- DELETE CONFIRMATION WINDOW -->
+<body>
+    <div id="delete" style="display: block">
+    <form id="deleteLocation" action="/delete_location/{{ location[0].location_id }}" method="POST" >
+        <legend><strong>Confirm Delete Location</strong></legend>
+            <fieldset class="fields">
+            <p>Are you sure you wish to delete the following?</p>
+
+
+            <!-- ITEM ATTRIBUTES -->
+            <div><label><strong>Location ID: </strong></label> {{ location[0].location_id }}</div>
+            <div><label><strong>Location Name: </strong></label> {{ location[0].location_name }}</div>
+            <div><label> <strong>Coordinates: </strong> </label> {{ user[0].coordinates }}</div>
+        </fieldset>
+
+
+        <!-- CONFIRM/CANCEL BUTTONS -->
+        <input class="btn" type="submit" name="Delete_Location" value="Delete Location">
+        <button class="btn" type="button" onclick="window.location.href='/locations';">Cancel</button>
+    </form> 
+    </div>
+
+</html>

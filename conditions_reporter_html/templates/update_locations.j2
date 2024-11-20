@@ -1,0 +1,42 @@
+<html>
+
+<head>
+	<title>Edit User - Surf Conditions Reporter</title>
+    <link href="../static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- PAGE TITLE -->
+<h1>Surf Conditions Reporter</h1>
+<p></p>
+
+<!-- NAVIGATION BAR -->
+<div>[ <a href="/users">users</a> | <a href="/locations">locations</a> | <a href="/stations">stations</a> | <a href="/conditions">conditions</a> ]</div>
+<div>[ <a href="/locations_stations">locations_stations</a> | <a href="/users_locations">users_locations</a> | <a href="/users_conditions">users_conditions</a> | <a href="/stations_conditions">stations_conditions</a> ]</div>
+<p></p>
+
+<!-- UPDATE DETAILS WINDOW -->
+<body>
+    <div id="edit">
+        <form id="updateLocation" action="/update_location/{{ location[0].location_id }}" method="POST">
+            <legend><strong>Update Location Details</strong></legend>
+            <fieldset>
+
+                <!-- ITEM ATTRIBUTES -->
+                <input type="hidden" value="{{ location[0].location_id }}" class="form-control" id="location_id" name="location_id" required>
+                
+                <label for="make">Location Name:</label>
+                <input type="text" value="{{ location[0].location_name }}" class="form-control" id="location_name" name="location_name" required>
+                
+                <label for="model">Coordinates:</label>
+                <input type="text" value="{{ location[0].coordinates }}" class="form-control" id="coordinates" name="coordinates" required>
+                
+            </fieldset>
+
+
+            <!-- CONFIRM UPDATE/CANCEL BUTTONS -->
+            <input type="submit" value="Update Location" name="Update_Location" class="btn btn-primary" style="margin:.5rem;">
+            <button class="btn" type="button" onclick="window.location.href='/locations';">Cancel</button>
+
+        </form>
+
+</html>
