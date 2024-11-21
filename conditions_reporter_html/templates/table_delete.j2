@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>Delete User - Surf Conditions Reporter</title>
+    <link href="../static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+<!-- PAGE TITLE -->
+<h1>Surf Conditions Reporter</h1>
+<p></p>
+
+
+<!-- NAVIGATION BAR -->
+<div>[ <a href="/users">users</a> | <a href="/locations">locations</a> | <a href="/stations">stations</a> | <a href="/conditions">conditions</a> ]</div>
+<div>[ <a href="/locations_stations">locations_stations</a> | <a href="/users_locations">users_locations</a> | <a href="/users_conditions">users_conditions</a> | <a href="/stations_conditions">stations_conditions</a> ]</div>
+<p></p>
+
+<body></body>
+<!-- DELETE CONFIRMATION WINDOW -->
+
+    <div id="delete" style="display: block">
+    <form id="deleteUser" action="/delete_user/{{ user[0].user_id }}" method="POST" >
+        <legend><strong>Confirm Delete User</strong></legend>
+            <fieldset class="fields">
+            <p>Are you sure you wish to delete the following?</p>
+
+
+            <!-- ITEM ATTRIBUTES -->
+            <div><label><strong>user_id: </strong></label> {{ user[0].user_id }}</div>
+            <div><label><strong>username: </strong></label> {{ user[0].username }}</div>
+            <div><label> <strong>email: </strong> </label> {{ user[0].email }}</div>
+        </fieldset>
+
+
+        <!-- CONFIRM/CANCEL BUTTONS -->
+        <input class="btn" type="submit" name="Delete_User" value="Delete User">
+        <button class="btn" type="button" onclick="window.location.href='/users';">Cancel</button>
+    </form> 
+    </div>
+
+</html>

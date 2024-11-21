@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <title>Surf Conditions Reporter - {{table_name}}</title>
+    <link rel="icon" href="../static/icons/wave_icon.svg" type="image/x-icon">
+    <link href="../static/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body onload="browseEntries()">
+    
+    <!-- PAGE TITLE / TABLE NAME -->
+      <h1>Surf Conditions Reporter Database</h1>
+      <h2>{{table_name}}</h2>
+    
+    
+    <!-- NAV BAR -->
+      <div class="navbar">
+        <ul>
+          <li><a href="index.html" class="active">HOME</a></li>
+        </ul>
+        <ul>
+          <li><a href="/users">Users</a></li>
+          <li><a href="/locations">Locations</a></li>
+          <li><a href="/stations">Stations</a></li>
+          <li><a href="/conditions">Conditions</a></li>
+        </ul>
+        <ul>
+          <li><a href="/locations_stations">Locations-Stations</a></li>
+          <li><a href="/users_locations">Users-Locations</a></li>
+          <li><a href="/users_conditions">Users-Conditions</a></li>
+          <li><a href="/stations_conditions">Stations-Conditions</a></li>
+        </ul>
+      </div>
+
+<!-- UPDATE DETAILS WINDOW -->
+<body>
+    <div id="edit">
+        <form id="update{{Obj_Name}}" action="/update_{{obj_name}}/{{ obj_name[id] }}" method="POST">
+            <legend><strong>Update User Details</strong></legend>
+            <fieldset>
+
+                <!-- ITEM ATTRIBUTES -->
+                <input type="hidden" value="{{ obj_name[id] }}" class="form-control" id="{{obj_name}}_id" name="obj_name_id" required>
+                
+                {% for key, value in update_req.items() %}
+                <label for="{{value}}">{{key}}:</label>
+                <input type="text" value="{{ user[0].username }}" class="form-control" id="username" name="username" required>
+                {% endfor %}
+            </fieldset>
+
+
+            <!-- CONFIRM UPDATE/CANCEL BUTTONS -->
+            <input type="submit" value="Update {{Obj_Name}}" name="Update_{{Obj_Name}}" class="btn btn-primary" style="margin:.5rem;">
+            <button class="btn" type="button" onclick="window.location.href='/{{obj_name}}';">Cancel</button>
+
+        </form>
+
+</html>

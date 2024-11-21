@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Surf Conditions Reporter - Users</title>
+<link rel="icon" href="../static/icons/wave_icon.svg" type="image/x-icon">
 <link href="../static/style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript">
 		function showform(dowhat) {
@@ -46,7 +47,7 @@
     function showAll() { showform ('all'); }
 </script>
 </head>
-<body onload="browseUsers()">
+<body onload="browseEntries()">
 
 
 <!-- PAGE TITLE -->
@@ -61,7 +62,7 @@
 
 
 <!-- TABLE NAME -->
-<h2>Users</h2>
+<h2>{{table_name}}</h2>
 
 
 <!-- BROWSE TABLE -->
@@ -70,13 +71,12 @@
 
 
     <!-- TABLE HEADER -->
-    {% if users %}
+    {% if data %}
     <thead>
         <tr>
-          <th><a href="#" onClick="newEntry()">Add New User</a></th>
+          <th><a href="#" onClick="newEntry()">Add New {{table_name}}</a></th>
           <th></th>
-          <!-- Iterate through each key in the first entry to get the column name -->
-          {% for key in users[0].keys() %}
+          {% for key in data[0].keys() %}
             <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
           {% endfor %}
         </tr>
@@ -85,14 +85,14 @@
 
     <!-- TABLE VALUES -->
     <tbody>
-      <!-- Now, iterate through every item in data -->
-      {% for user in users %}
+      {% for item in data %}
         <tr>
+
         <!-- Then iterate through every key in the current item dictionary -->
-          <td><a href="update_user/{{ user.user_id }}">Edit</a></td>
-          <td><a href="delete_user/{{ user.user_id }}">Delete</a></td>
-        {% for key in user.keys() %}
-          <td align="right">{{ user[key] }}</td>  
+          <td><a href="update_{{obj_name}}/{{ item[id] }}">Edit</a></td>
+          <td><a href="delete_{{obj_name}}/{{ item[id] }}">Delete</a></td>
+        {% for key in item.keys() %}
+          <td align="right">{{ item[key] }}</td>  
         {% endfor %}
         </tr>
       {% endfor %}
@@ -104,24 +104,9 @@
 </div>
 
 
-<!-- ADD NEW VALUE FORM -->
-<div id="insert">
-		<!-- form to INSERT new data into users-->
-		<form id="insertUser" action="/add_user" method="POST">
-			<legend><strong>Add User</strong></legend>
-			<fieldset>
-				<label for="make">Username:</label>
-				<input type="text" class="form-control" id="username" name="username" placeholder="" required>
 
-				<label for="model">Email:</label>
-				<input type="text" class="form-control" id="email" name="email" placeholder="" required>
-      </fieldset>
 
-      <!-- CREATE/CANCEL BUTTONS -->
-			<input type="submit" value="Add User" name="Add_User" class="btn btn-primary" style="margin:.5rem;">
-			<input class="btn" type="button" value="Cancel" onClick="browseEntries()"> 
-        </form>
-	</div><!--insert-->
+
 
 
 

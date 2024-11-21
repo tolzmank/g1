@@ -7,8 +7,6 @@ import os
 
 app = Flask(__name__)
 
-# RIGHT FILE???
-
 # database connection info
 app.config["MYSQL_HOST"] = "classmysql.engr.oregonstate.edu"
 app.config["MYSQL_USER"] = "cs340_tolzmank"
@@ -41,7 +39,22 @@ def show_users():
     cur = mysql.connection.cursor()
     cur.execute(query)
     users = cur.fetchall()
-    return render_template('users.j2', users=users)
+    return render_template('table.j2', 
+                            data = users,
+                            table_name = 'Users',
+                            obj_name = 'user',
+                            Obj_Name = 'User',
+                            id = 'user_id',
+                            main_name = 'username',
+                            add_req = {
+                               'Username': 'username', 
+                               'Email': 'email'
+                               },
+                            update_req = {
+                               'Username': 'username', 
+                               'Email': 'email'
+                               }
+                           )
 
 
 @app.route('/add_user', methods=['POST'])
@@ -65,7 +78,13 @@ def update_user(user_id):
         cur = mysql.connection.cursor()
         cur.execute(query)
         user = cur.fetchall()
-        return render_template("update_users.j2", user=user)
+        return render_template("table_update.j2", 
+                                user = user,
+                                table_name = 'Users',
+                                obj_name = 'user',
+                                Obj_Name = 'User',
+                                id = 'user_id'
+                               )
 
 
     if request.method == "POST":
@@ -89,21 +108,12 @@ def update_user(user_id):
 @app.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
 def delete_user(user_id):
     if request.method == "GET":
-        query = "SELECT * FROM users WHERE user_id = %s" % (user_id)
+        query = "DELETE FROM users WHERE user_id = %s"
         cur = mysql.connection.cursor()
-        cur.execute(query)
-        user = cur.fetchall()
-        return render_template("delete_user.j2", user=user)
+        cur.execute(query, (user_id,))
+        mysql.connection.commit()
 
-    if request.method == "POST":
-        if request.form.get("Delete_User"):
-            
-            query = "DELETE FROM users WHERE user_id = %s"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (user_id,))
-            mysql.connection.commit()
-
-            return redirect("/users")
+        return redirect("/users")
 
 
 
