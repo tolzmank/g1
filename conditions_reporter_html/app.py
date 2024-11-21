@@ -46,14 +46,11 @@ def show_users():
                             Obj_Name = 'User',
                             id = 'user_id',
                             main_name = 'username',
-                            add_req = {
-                               'Username': 'username', 
-                               'Email': 'email'
-                               },
-                            update_req = {
-                               'Username': 'username', 
-                               'Email': 'email'
-                               }
+                            display_names = {
+                                'ID': 'user_id',
+                                'Username': 'username',
+                                'Email': 'email'
+                            }
                            )
 
 
@@ -79,11 +76,18 @@ def update_user(user_id):
         cur.execute(query)
         user = cur.fetchall()
         return render_template("table_update.j2", 
-                                user = user,
+                                item_data = user,
                                 table_name = 'Users',
                                 obj_name = 'user',
                                 Obj_Name = 'User',
-                                id = 'user_id'
+                                obj_names = 'users',
+                                ID = 'ID',
+                                id = 'user_id',
+                                display_names = {
+                                    'ID': 'user_id',
+                                    'Username': 'username',
+                                    'Email': 'email'
+                                    }
                                )
 
 
@@ -124,7 +128,19 @@ def show_locations():
     cur = mysql.connection.cursor()
     cur.execute(query)
     locations = cur.fetchall()
-    return render_template('locations.j2', locations=locations)
+    return render_template('table.j2', 
+                            data=locations,
+                            table_name = 'Locations',
+                            obj_name = 'location',
+                            Obj_Name = 'Location',
+                            id = 'location_id',
+                            main_name = 'location_name',
+                            display_names = {
+                                'ID': 'location_id',
+                                'Location Name': 'location_name', 
+                                'Coordinates': 'coordinates'
+                            }
+                           )
 
 
 @app.route('/add_location', methods=['POST'])
@@ -148,7 +164,19 @@ def update_location(location_id):
         cur = mysql.connection.cursor()
         cur.execute(query)
         location = cur.fetchall()
-        return render_template("update_location.j2", location=location)
+        return render_template("table_update.j2", 
+                                item_data = location,
+                                table_name = 'Locations',
+                                obj_name = 'location',
+                                Obj_Name = 'Location',
+                                obj_names = 'locations',
+                                id = 'location_id',
+                                display_names = {
+                                    'ID': 'location_id',
+                                    'Location Name': 'location_name',
+                                    'Coordinates': 'coordinates'
+                                    }
+                               )
 
 
     if request.method == "POST":
@@ -172,21 +200,11 @@ def update_location(location_id):
 @app.route('/delete_location/<int:location_id>', methods=['GET', 'POST'])
 def delete_location(location_id):
     if request.method == "GET":
-        query = "SELECT * FROM locations WHERE location_id = %s" % (location_id)
+        query = "DELETE FROM locations WHERE location_id = %s"
         cur = mysql.connection.cursor()
-        cur.execute(query)
-        location = cur.fetchall()
-        return render_template("delete_location.j2", location=location)
-
-    if request.method == "POST":
-        if request.form.get("Delete_Location"):
-            
-            query = "DELETE FROM locations WHERE location_id = %s"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (location_id,))
-            mysql.connection.commit()
-
-            return redirect("/locations")
+        cur.execute(query, (location_id,))
+        mysql.connection.commit()
+        return redirect("/locations")
 
 
 
@@ -197,7 +215,21 @@ def show_stations():
     cur = mysql.connection.cursor()
     cur.execute(query)
     stations = cur.fetchall()
-    return render_template('stations.j2', stations=stations)
+    return render_template('table.j2', 
+                            data = stations,
+                            table_name = 'Stations',
+                            obj_name = 'station',
+                            Obj_Name = 'Station',
+                            id = 'station_id',
+                            main_name = 'station_name',
+                            display_names = {
+                                'ID': 'station_id',
+                                'Station Code': 'station_code',
+                                'Station Name': 'station_name',
+                                'Station URL': 'station_url',
+                                'Date Refreshed': 'date_refreshed'
+                            }
+                           )
 
 
 @app.route('/add_station', methods=['POST'])
@@ -223,7 +255,21 @@ def update_station(station_id):
         cur = mysql.connection.cursor()
         cur.execute(query)
         station = cur.fetchall()
-        return render_template("update_station.j2", station=station)
+        return render_template("table_update.j2", 
+                            item_data = station,
+                            table_name = 'Stations',
+                            obj_name = 'station',
+                            Obj_Name = 'Station',
+                            id = 'station_id',
+                            main_name = 'station_name',
+                            display_names = {
+                                'ID': 'station_id',
+                                'Station Code': 'station_code',
+                                'Station Name': 'station_name',
+                                'Station URL': 'station_url',
+                                'Date Refreshed': 'date_refreshed'
+                            }
+                               )
 
 
     if request.method == "POST":
@@ -249,21 +295,11 @@ def update_station(station_id):
 @app.route('/delete_station/<int:station_id>', methods=['GET', 'POST'])
 def delete_station(station_id):
     if request.method == "GET":
-        query = "SELECT * FROM stations WHERE station_id = %s" % (station_id)
+        query = "DELETE FROM stations WHERE station_id = %s"
         cur = mysql.connection.cursor()
-        cur.execute(query)
-        station = cur.fetchall()
-        return render_template("delete_station.j2", station=station)
-
-    if request.method == "POST":
-        if request.form.get("Delete_Station"):
-            
-            query = "DELETE FROM stations WHERE station_id = %s"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (station_id,))
-            mysql.connection.commit()
-
-            return redirect("/stations")
+        cur.execute(query, (station_id,))
+        mysql.connection.commit()
+        return redirect("/stations")
 
 
 
@@ -274,10 +310,22 @@ def show_conditions():
     cur = mysql.connection.cursor()
     cur.execute(query)
     conditions = cur.fetchall()
-    return render_template('conditions.j2', conditions=conditions)
+    return render_template('table.j2', 
+                            data = conditions,
+                            table_name = 'Conditions',
+                            obj_name = 'condition',
+                            Obj_Name = 'Condition',
+                            id = 'condition_id',
+                            main_name = 'condition_type',
+                            display_names = {
+                                'ID': 'condition_id',
+                                'Condition Type': 'condition_type',
+                                'Measurement Unit': 'measurement_unit',
+                            }
+                           )
 
 
-@app.route('/add_station', methods=['POST'])
+@app.route('/add_condition', methods=['POST'])
 def add_condition():
     if request.method == 'POST':
         if request.form.get("Add_Condition"):
@@ -298,7 +346,18 @@ def update_condition(condition_id):
         cur = mysql.connection.cursor()
         cur.execute(query)
         condition = cur.fetchall()
-        return render_template("update_condition.j2", condition=condition)
+        return render_template("table_update.j2",                             
+                                item_data = condition,
+                                table_name = 'Conditions',
+                                obj_name = 'condition',
+                                Obj_Name = 'Condition',
+                                id = 'condition_id',
+                                main_name = 'condition_type',
+                                display_names = {
+                                    'ID': 'condition_id',
+                                    'Condition Type': 'condition_type',
+                                    'Measurement Unit': 'measurement_unit',
+                            })
 
 
     if request.method == "POST":
@@ -322,21 +381,12 @@ def update_condition(condition_id):
 @app.route('/delete_condition/<int:condition_id>', methods=['GET', 'POST'])
 def delete_condition(condition_id):
     if request.method == "GET":
-        query = "SELECT * FROM conditions WHERE condition_id = %s" % (condition_id)
+        query = "DELETE FROM conditions WHERE condition_id = %s"
         cur = mysql.connection.cursor()
-        cur.execute(query)
-        condition = cur.fetchall()
-        return render_template("delete_condition.j2", condition=condition)
+        cur.execute(query, (condition_id,))
+        mysql.connection.commit()
 
-    if request.method == "POST":
-        if request.form.get("Delete_Condition"):
-            
-            query = "DELETE FROM conditions WHERE condition_id = %s"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (condition_id,))
-            mysql.connection.commit()
-
-            return redirect("/conditions")
+        return redirect("/conditions")
 
 
 

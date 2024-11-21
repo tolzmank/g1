@@ -34,23 +34,28 @@
 <!-- UPDATE DETAILS WINDOW -->
 <body>
     <div id="edit">
-        <form id="update{{Obj_Name}}" action="/update_{{obj_name}}/{{ obj_name[id] }}" method="POST">
-            <legend><strong>Update User Details</strong></legend>
+        <form id="update{{Obj_Name}}" action="/update_{{obj_name}}/10" method="POST">
+            <legend><strong>Update {{table_name}} Details</strong></legend>
             <fieldset>
 
                 <!-- ITEM ATTRIBUTES -->
-                <input type="hidden" value="{{ obj_name[id] }}" class="form-control" id="{{obj_name}}_id" name="obj_name_id" required>
+                {% for key, value in display_names.items() %}
+                {% if key == 'ID' %}
+                    <label for="{{id}}">{{key}}:</label>
+                    <input type="text" value="{{ item_data[0][id] }}" class="form-control" id="{{obj_name}}_id" name="{{obj_name}}_id" readonly required>
                 
-                {% for key, value in update_req.items() %}
-                <label for="{{value}}">{{key}}:</label>
-                <input type="text" value="{{ user[0].username }}" class="form-control" id="username" name="username" required>
+                {% else %}
+                    <label for="{{value}}">{{key}}:</label>
+                    <input type="text" value="{{ item_data[0][value] }}" class="form-control" id="{{value}}" name="{{value}}" required>
+                {% endif %}
                 {% endfor %}
+
             </fieldset>
 
 
             <!-- CONFIRM UPDATE/CANCEL BUTTONS -->
             <input type="submit" value="Update {{Obj_Name}}" name="Update_{{Obj_Name}}" class="btn btn-primary" style="margin:.5rem;">
-            <button class="btn" type="button" onclick="window.location.href='/{{obj_name}}';">Cancel</button>
+            <button class="btn" type="button" onclick="window.location.href='/{{obj_names}}';">Cancel</button>
 
         </form>
 
